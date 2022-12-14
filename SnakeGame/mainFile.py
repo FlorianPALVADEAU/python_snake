@@ -54,7 +54,7 @@ while True:
                     score.score = 0
                     game_over = False
     
-    Sounds.PlayMusic('background_music', 'background_music')
+    # Sounds.PlayMusic('background_music', 'background_music')
     screen.screen.fill((50, 205, 50))
     score.DisplayScore(screen.screen)
     
