@@ -13,6 +13,6 @@ class Text:
         text = pygame.font.Font('Oswald-VariableFont_wght.ttf', 32).render(f"Pour rejouer, appuies sur ta touche 'P' !", True, (255, 255, 255))
         text2 = pygame.font.Font('Oswald-VariableFont_wght.ttf', 32).render(f"Si tu souhaites quitter, appuies sur 'Echap' !", True, (255, 255, 255))
         screen.blit(text1, (320, 300))
-        screen.blit(text, (250, 400))
+        screen.blit(text, (280, 400))
         screen.blit(text2, (250, 700))
         

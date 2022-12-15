@@ -16,7 +16,7 @@ snake = Snake(screen.tileSet, 1, (0, 0), screen.get_random_position())
 
 # Setting fruit parameters
 fruit = Fruit(snake.snake.copy(), screen.get_random_position())
-fruit2 = None
+fruit2 = Fruit(snake.snake.copy(), (10000, 1000))
 
 # Setting score
 score = Text(snake.length-1, (screen.mainWindowSize // 2.2, 20))
@@ -27,8 +27,6 @@ def eatFruit():
     score.DisplayScore(screen.screen)
     Sounds.PlaySound('apple_sound', 'apple_sound')
 
-def setFruit2():
-    fruit2 = Fruit(snake.snake.copy(), screen.get_random_position())
 
 
 # Setting Playability to true
@@ -36,7 +34,6 @@ game_over = False
 
 # Main loop
 while True:
-
     while game_over == True:
 
         for event in pygame.event.get():
@@ -46,11 +43,12 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     exit()
-                if event.key == pygame.K_p:
+                if event.key == pygame.K_SPACE:
                     snake = Snake(screen.tileSet, 1, (0, 0), screen.get_random_position())
                     fruit = Fruit(snake.snake.copy(), screen.get_random_position())
                     snake.snake.center = screen.get_random_position()
                     fruit.fruit.center = screen.get_random_position()
+                    fruit2.fruit.center = screen.get_random_position()
                     score.score = 0
                     game_over = False
     
@@ -72,9 +70,8 @@ while True:
         game_over = True
         screen.screen.fill(((220,20,60)))
         snake.direction = (0, 0)
-        snake.snake.center = (10000, 0)
         snake.part = [snake.snake.copy()]
-        fruit.fruit.center = (100000, 0)
+        snake.snake.center, fruit.fruit.center, fruit2.fruit.center = (1000000, 0), (10000000, 0), (100000000, 0)
         Text.DisplayLooseMessage(screen.screen, screen.screen, score.score)
         Sounds.PlaySound("loose_sound", "loose_sound")
 
@@ -89,7 +86,7 @@ while True:
 
     # draw fruit
     fruit.Draw(screen.screen, 'red', fruit.fruit)
-    if fruit2: fruit2.Draw(screen.screen, 'red', fruit2.fruit)
+    if score.score > 5: fruit2.Draw(screen.screen, 'red', fruit2.fruit)
 
     # draw snake
     snake.Draw(screen.screen, snake.part)
@@ -103,10 +100,9 @@ while True:
         snake.part = snake.part[-snake.length:]
     
     # Adding difficulties depending on player score
-    if snake.length > 5:
+    if score.score > 5:
         time_step = 60
-        setFruit2()
-    if snake.length > 15:
+    if score.score > 15:
         time_step = 50
 
     pygame.display.flip()
