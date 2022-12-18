@@ -16,7 +16,7 @@ snake = Snake(screen.tileSet, 1, (0, 0), screen.get_random_position())
 
 # Setting fruit parameters
 fruit = Fruit(snake.snake.copy(), screen.get_random_position())
-fruit2 = Fruit(snake.snake.copy(), (10000, 1000))
+fruit2 = Fruit(snake.snake.copy(), screen.get_random_position())
 
 # Setting score
 score = Text(snake.length-1, (screen.mainWindowSize // 2.2, 20))
@@ -27,6 +27,7 @@ def eatFruit():
     score.DisplayScore(screen.screen)
     Sounds.PlaySound('apple_sound', 'apple_sound')
 
+counter = 0
 
 
 # Setting Playability to true
@@ -86,7 +87,8 @@ while True:
 
     # draw fruit
     fruit.Draw(screen.screen, 'red', fruit.fruit)
-    if score.score > 5: fruit2.Draw(screen.screen, 'red', fruit2.fruit)
+    if score.score >= 7:
+        fruit2.Draw(screen.screen, 'red', fruit2.fruit)
 
     # draw snake
     snake.Draw(screen.screen, snake.part)
